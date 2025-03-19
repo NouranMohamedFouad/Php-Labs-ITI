@@ -1,0 +1,13 @@
+
+.container{
+    background-color: rgb(32, 30, 30);
+    color: aliceblue;
+    
+}
+
+.form{
+    background-color: rgba(228, 228, 228, 0.849);
+    color:black;
+    width:80%;
+    margin:0 auto;
+}

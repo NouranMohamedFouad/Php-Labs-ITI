@@ -2,6 +2,8 @@
     require_once "../includes/utils.php";
     require_once "../helpers/addUser.php";
     require_once "../validations/validate.php";
+    require_once "../helpers/idHandlation.php";
+
 
 
 
@@ -26,12 +28,37 @@
             $confirm_password = $_POST['confirm_password'];
             $room = $_POST['room'];
             $ext = $_POST['ext'];
-            //$profile_picture = $_POST['profile_picture'];
 
+            $image_name = $_FILES['image']['name'];
+            $image_size = $_FILES['image']['size'];
+            $image_tmp = $_FILES['image']['tmp_name'];
+
+            $valid_extensions = array("jpeg", "jpg", "png");
+            $ext = pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
+            var_dump($ext);
+
+            if(empty($image_name) and empty($image_tmp)  or ! in_array($ext, $valid_extensions)) {
+                $formErrors["image"]="please enter a valid image";
+                $errors = json_encode($formErrors);
+                $queryString ="errors={$errors}";
+                $old_data = json_encode($oldData);
+                if($old_data){
+                    $queryString .= "&old={$old_data}";
+                }
+                header("location:../app/register.php?{$queryString}");
+            }else{
+                $image_name = explode("/", $image_tmp);
+                $image_name = end($image_name).".".$ext;
+                var_dump($image_name);
+
+                $uploaded=move_uploaded_file($image_tmp, "../uploads/" . $image_name);
+                $imagePath = "../uploads/" . $image_name;
+            }
+        
          
             $id = addID();
 
-            $info = "{$id}:{$name}:{$email}:{$password}:{$room}:{$ext}\n";
+            $info = "{$id}:{$name}:{$email}:{$password}:{$room}:{$ext}:{$imagePath}\n";
 
             $saved = appendDataTofile("../data/users.txt", $info);
 
@@ -104,6 +131,8 @@
                 <strong>Extension:</strong>
                 <?php echo $ext;?>
             </p>
+            <img src="<?php echo $imagePath; ?>" alt="Uploaded Image" />
+
             
         </div>
     </div>

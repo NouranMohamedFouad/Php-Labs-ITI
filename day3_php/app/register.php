@@ -12,6 +12,9 @@
         $old_data=$_GET["old"];
         $old_data = json_decode($old_data, true);
     }
+
+    
+
 ?>
 
 
@@ -43,7 +46,9 @@
 
         <div class="mb-3">
             <label for="email" class="form-label">Email:</label>
-            <input type="email" class="form-control" id="email" name="email" required>
+            <input type="email" class="form-control" id="email" name="email" 
+            value='<?php echo $old_data["email"]? $old_data["email"]: ""  ?>'
+            required>
         </div>
 
 
@@ -59,7 +64,10 @@
 
         <div class="mb-3">
             <label for="confirm_password" class="form-label">Confirm Password:</label>
-            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+            <input type="password" class="form-control" id="confirm_password" name="confirm_password" 
+            value='<?php echo $old_data["confirm_password"]? $old_data["confirm_password"]: ""  ?>'
+
+            required>
         </div>
 
         <div class="mb-3">
@@ -73,22 +81,24 @@
 
         <div class="mb-3">
             <label for="ext" class="form-label">Extension:</label>
-            <input type="text" class="form-control" id="ext" name="ext">
+            <input type="text" class="form-control" id="ext" name="ext"
+            value='<?php echo $old_data["ext"]? $old_data["ext"]: ""  ?>'
+
+            >
         </div>
 
-
         <div class="mb-3">
-            <label for="profile_picture" class="form-label">Profile Picture:</label>
-            <input type="file" class="form-control" id="profile_picture" name="profile_picture" accept="image/*" required>
+            <label for="image" class="form-label">Profile Picture:</label>
+            <input type="file" class="form-control" id="file" name="image"  required>
+        </div>
+
+        <div class="text-danger  font-weight-bold">
+            <?php  echo $errors["image"] ? "{$errors['image']}" : ""; ?>
         </div>
 
         <button type="submit" class="btn btn-primary w-100">Register</button>
         <button type="reset" class="btn btn-secondary w-100 mt-2">Reset</button>
-
-        
-        
     </form>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -11,6 +11,14 @@
     $formErrors = $formDataIssues["errors"];
     $oldData= $formDataIssues["valid_data"];
 
+
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
+    $matched=isPasswordMatch($password,$confirm_password);
+    if(!$matched){
+        $formErrors["confirm_password"]="confirm password didn't match";
+    }
+
     if(count($formErrors)) {
         $errors = json_encode($formErrors);
         $queryString ="errors={$errors}";
@@ -24,8 +32,6 @@
 
             $name = $_POST['name'];
             $email = $_POST['email'];
-            $password = $_POST['password'];
-            $confirm_password = $_POST['confirm_password'];
             $room = $_POST['room'];
             $ext = $_POST['ext'];
 

@@ -66,9 +66,12 @@
             <label for="confirm_password" class="form-label">Confirm Password:</label>
             <input type="password" class="form-control" id="confirm_password" name="confirm_password" 
             value='<?php echo $old_data["confirm_password"]? $old_data["confirm_password"]: ""  ?>'
-
             required>
         </div>
+        <div class="text-danger  font-weight-bold">
+            <?php  echo $errors["confirm_password"] ? "{$errors['confirm_password']}" : ""; ?>
+        </div>
+
 
         <div class="mb-3">
             <label for="room" class="form-label">Room No.:</label>

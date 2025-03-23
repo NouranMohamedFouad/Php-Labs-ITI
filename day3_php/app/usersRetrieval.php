@@ -21,8 +21,6 @@
     }
     else{
         echo '<body style="background-color: rgb(32, 30, 30);"><h1 class="text-center mt-5 fw-bold text-primary">No Records Found !</h1> </body>';
-
-
     }
     
 ?>
